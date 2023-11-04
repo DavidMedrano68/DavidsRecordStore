@@ -1,0 +1,49 @@
+extends layout
+
+block content
+   div(class="grid col-span-10")
+    div(class="font-extrabold text-3xl")=title
+
+    form(method='POST' action='' class="grid col-span-10 gap-3")
+        div
+        label(for='albumName') Album Name:
+        input#albumName(class="w-3/4 rounded-lg text-black p-[2px] outline-0" type='text' placeholder='Album Name' name='albumName'  value=(undefined===album ? null : album.albumName) required="true")
+        label(for="artist") Artist Name: 
+          select(class="text-black rounded-lg" type='select', placeholder='Select artists' name='artist' required='true')
+            for artist in artistList
+              if album
+                option( value=artist._id selected=(artist._id.toString()===album.artist._id.toString() ? 'selected' : false) ) #{artist.artistName}
+              else
+                option( value=artist._id) #{artist.artistName}
+        div(class="grid grid-rows-2") Don't see the Artist ? 
+            a(href="/catalog/artist/create" class="underline") Create it
+        label(for='description') Album description :
+        textarea#description(class="w-3/4 rounded-lg text-black p-[2px] outline-0" name="description", cols="25", rows="5" type="text" placeholder="Write the inspiration about the album" ) #{album === undefined ? undefined : album.description}
+        div
+        label(for='genre') Genres :
+            each genre,index in genres
+             if !album
+              if index == 0
+               div
+                input(type='checkbox', name='genre', id=genre._id, value=genre._id,  checked="true" )
+                label(for=genre._id) #{genre.genreName}
+              else
+               div
+                 input(type='checkbox', name='genre', id=genre._id, value=genre._id, checked=genre.checked )
+                 label(for=genre._id) #{genre.genreName}
+             else
+              div
+                 input(type='checkbox', name='genre', id=genre._id, value=genre._id, checked=genre.checked )
+                 label(for=genre._id) #{genre.genreName}
+        div(class="grid grid-rows-2") Don't see the Genre ?
+            a(href="/catalog/genre/create" class="underline") Create it
+        div(class="grid grid-rows-2 gap-3")
+            label(for="price") Price of album : 
+                input(class="text-black p-[2px] outline-0 rounded-lg" type="number", name="price" min=10 max=50 required="true" value=(album === undefined ? undefined : album.price))
+            label(for="stock") Stock in inventory : 
+                input(class="text-black p-[2px] outline-0 rounded-lg" type="number", name="stock" min=1 max=100 required="true" value=(album === undefined ? undefined : album.stock)) 
+        button(type='submit' class="bg-blue-600 w-3/4 place-self-center my-4") Submit
+    if errors
+        ul
+        for error in errors
+            li(class="text-red-600 text-lg")!= error.msg

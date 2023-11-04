@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  div(class="font-extrabold text-3xl grid col-span-10") !{title}
+    ul(class="grid grid-rows-4 text-lg font-semibold")
+      li #[ Total Album: ] !{albumNum}
+        a(class="block text-blue-600 w-fit " href="/catalog/albums") Explore Albums
+      li #[ Total Artist: ] !{artistNum}
+        a(class="block text-blue-600 w-fit " href="/catalog/artists") Explore Artists
+      li #[ Total Genre: ] !{genreNum}
+        a(class="block text-blue-600 w-fit " href="/catalog/genres") Explore Genres
+      li #[ Total Songs: ] !{songNum}
+        a(class="block text-blue-600 w-fit " href="/catalog/songs") Explore Songs
+
+      
+  

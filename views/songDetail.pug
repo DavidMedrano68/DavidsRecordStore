@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  div(class="grid col-span-10")
+    div(class="text-xl font-semibold ") #{title}
+     div(class="text-3xl font-extrabold") #{song.songName}
+     div Song by : #{song.artist.firstName && song.artist.lastName ? song.artist.firstName + " " + song.artist.lastName : song.artist.bandName}
+     div #{song.album.albumName != "single" ? `Song is part of ${song.album.albumName}`: `This Song is a ${song.album.albumName}`}
+     div #{`Total runtime : ${song.runtime} minutes`}
+     ul
+        if song.featured
+          div Featured :
+            each artist,  index in song.featured
+              li
+                 a(href=artist.url) #{artist.firstName && artist.lastName ? artist.firstName + " " + artist.lastName : artist.bandName}
+                 if index < song.featured.length - 1
+                   |, 
+
+    div Something wrong with this information ?
+      a(href=`${song.url}/update` class="text-green-600 underline")  Edit it
+    div Song doesn't belong here ?
+      a(href=`${song.url}/delete` class="text-red-600 underline")  Delete it
+

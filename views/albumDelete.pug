@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  div(class="grid col-span-10")
+    h1(class="text-3xl font-semibold") #{title}: #{album.albumName}
+    p= "Artist : " + album.artist.artistName
+
+    if message
+
+
+        p #[strong #{message}]
+        ul
+            if songList
+                each song in songList 
+                    li
+                        a(href=song.url) #{song.songName} 
+
+
+
+    else
+        p(class="text-red-600 font-extrabold text-lg") Do you really want to delete this Album?
+
+        form(method='POST' action='')
+            input(type='hidden',name='albumId', required='true', value=album._id )
+
+            button(type='submit' class="bg-red-600 w-3/4  my-4 rounded-lg") Delete

@@ -1,0 +1,16 @@
+extends layout
+
+block content
+   div(class=" col-span-10")
+    div(class="font-extrabold text-3xl h-min")=title
+    form(method='POST' action='' class="grid place-items-center mt-4")
+        label(for='genreName') Genre Name : 
+        input#genreName(class="w-3/4 rounded-lg text-black p-[2px] outline-0" type='text' placeholder='Please enter genre name' name='genreName'  value=(undefined===genre ? null : genre.genreName) required="true")
+        button(type='submit' class="bg-blue-600  place-self-center my-4 rounded-lg w-1/2") Submit
+    if errors
+        ul
+        for error in errors
+          if error.msg
+            li!= error.msg
+          else
+            li!= error.message

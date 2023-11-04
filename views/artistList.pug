@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  div(class="font-semibold text-3xl grid col-span-10") !{title}
+    ul
+      each artist in artistList
+        li(class="grid grid-flow-row place-items-center")
+          a(href=artist.url class="text-xl font-semibold") #{artist.firstName && artist.lastName ? artist.firstName + " " + artist.lastName : artist.bandName}
+        div(class="text-base font-normal text-center") Genre : 
+            each val, index in artist.genre
+             a(class="text-base font-normal" href=val.url) #{val.genreName}
+             if index < artist.genre.length - 1
+               |, 

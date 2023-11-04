@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  div(class="grid col-span-10")
+    h1(class="text-3xl font-semibold") #{title}: #{artist.artistName}
+    p= "Artist origin : " + artist.origin
+
+    if message
+
+
+        p #[strong #{message}]
+        if songs
+          ul Songs :
+          div
+            each song in songs
+                li 
+                    a(href=song.url) #{song.songName} 
+        if albums
+          ul Album : 
+          div
+            each album in albums
+                li 
+                    a(href=album.url) #{album.albumName} 
+        if artistSongs
+            ul
+                each aSong in artistSongs 
+                    a(href=aSong.url) #{aSong.songName}
+
+
+
+    else if !songs && !albums && !artistSongs
+        p(class="text-red-600 font-extrabold text-lg") Do you really want to delete this artist?
+
+        form(method='POST' action='')
+            input(type='hidden',name='artistId', required='true', value=artist._id )
+
+            button(type='submit' class="bg-red-600 w-3/4  my-4 rounded-lg") Delete

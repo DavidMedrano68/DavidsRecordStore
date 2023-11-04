@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  div(class="grid col-span-10")
+    div(class="font-extrabold text-3xl") #{title}
+    div Genre : 
+        each val, index in artist.genre
+         a(href=val.url) #{val.genreName}
+         if index < artist.genre.length - 1
+           |,
+    div #[strong #{artist.firstName && artist.lastName ? artist.firstName + " " + artist.lastName : artist.bandName}]
+    div #{`They have been around for ${artist.age} years`}
+    div #{artist.origin}
+    div #[strong Albums: ]
+    ul
+      each album in albums
+        li(class="text-sm")
+         a(href=album.url) #{album.albumName}
+       
+    div #[strong Songs: ]
+    ul
+      each song in songList
+        li(class="text-sm")
+        a(href=song.url) #{song.songName}
+    
+    div Something wrong with this information ?
+        a(href=`${artist.url}/update` class="text-green-600 underline")  Edit it
+    div Don't need this artist anymore ?
+        a(href=`${artist.url}/delete` class="text-red-600 underline")  Delete it
+       
+
+    

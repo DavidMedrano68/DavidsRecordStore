@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  div(class="grid col-span-10")
+    h1(class="text-3xl font-semibold") #{title}: #{genre.genreName}
+    if message 
+        div(class="text-red-600 font-semibold text-xl") #{message}
+    if artistList || albums
+        if artistList
+            each artist in artistList
+             ul
+                p Before trying to delete genre you will have to delete this artist or change it.
+                    li(class="underline")
+                        a(href=artist.url) #{artist.artistName} 
+        if albums
+            each album in albums
+             ul
+                p Before trying to delete genre you will have to delete every song in this album
+                    li(class="underline")
+                        a(href=album.url) #{album.albumName}
+    else
+        p Do you really want to delete this song?
+
+        form(method='POST' action='')
+            input(type='hidden',name='genreId', required='true', value=genre._id )
+
+            button(type='submit' class="bg-blue-600 w-3/4  my-4 rounded-lg") Delete

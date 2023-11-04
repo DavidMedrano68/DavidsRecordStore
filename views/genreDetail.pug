@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  div(class="grid col-span-10")
+    div(class="text-3xl font-semibold ") #{title}
+
+    div #[strong #{genre.genreName}]
+    div #[strong Albums :]
+     ul
+        each album in genreAlbums
+            li 
+             a(href=album.url) #{album.albumName}
+    div Something wrong with this information ?
+      a(href=`${genre.url}/update` class="text-green-600 underline")  Edit it
+    div Don't need this genre anymore ?
+      a(href=`${genre.url}/delete` class="text-red-600 underline")  Delete it

@@ -1,0 +1,43 @@
+extends layout
+
+block content
+   div(class="grid col-span-10")
+    div(class="font-extrabold text-3xl")=title
+
+    form(method='POST' action='' class="grid col-span-10 gap-3")
+        div
+        div(class="text-red-600") #[strong Please either put first name and last name or band name not both. ]
+        label(for='firstName') First Name : 
+        input#firstName(class="w-3/4 rounded-lg text-black p-[2px] outline-0" type='text' placeholder='Please enter First name' name='firstName'  value=(undefined===artist ? undefined : artist.firstName && artist.lastName ? artist.firstName : undefined) )
+        label(for='lastName') Last Name : 
+        input#lastName(class="w-3/4 rounded-lg text-black p-[2px] outline-0" type='text' placeholder='Please enter Last name' name='lastName'  value=(undefined===artist ? undefined : artist.lastName && artist.firstName ? artist.lastName : undefined) )
+        label(for='bandName') Alias or Band name : 
+        input#bandName(class="w-3/4 rounded-lg text-black p-[2px] outline-0" type='text' placeholder='Please Band or Artist alias' name='bandName'  value=(undefined===artist ? undefined : !artist.lastName && !artist.firstName ? artist.bandName : undefined  ) )
+        label(for='origin') Artist origin :
+        textarea#origin(class="w-3/4 rounded-lg text-black p-[2px] outline-0" name="origin", cols="25", rows="5" type="text" placeholder="Write any information about the artist. ") #{artist === undefined ? undefined : artist.origin }
+        div
+        label(for='genre') Genres :
+            each genre,index in genres
+             if !artist
+              if index == 0
+               div
+                input(type='checkbox', name='genre', id=genre._id, value=genre._id,  checked="true" )
+                label(for=genre._id) #{genre.genreName}
+              else
+               div
+                 input(type='checkbox', name='genre', id=genre._id, value=genre._id, checked=genre.checked )
+                 label(for=genre._id) #{genre.genreName}
+             else
+              div
+                 input(type='checkbox', name='genre', id=genre._id, value=genre._id, checked=genre.checked )
+                 label(for=genre._id) #{genre.genreName}
+        div(class="grid grid-rows-2") Don't see the Genre ?
+            a(href="/catalog/genre/create" class="underline") Create it
+        div(class="grid grid-rows-2 gap-3")
+            label(for="age") Age of artist or age of the band : 
+                input(class="text-black p-[2px] outline-0 rounded-lg" type="number", name="age" min=13 max=99 required="true" value=(undefined === artist ? null : artist.age))
+        button(type='submit' class="bg-blue-600 w-3/4 place-self-center my-4 rounded-lg") Submit
+    if errors
+        ul
+        for error in errors
+            li!= error.msg

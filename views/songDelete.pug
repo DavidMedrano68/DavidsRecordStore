@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  div(class="grid col-span-10")
+    h1(class="text-3xl font-semibold") #{title}: #{song.songName}
+    p="Runtime : " + song.runtime
+    p= "Artist : " + song.artist.artistName
+
+    if message
+
+        p #[strong #{message}]
+
+        form(method='POST' action='')
+            input(type='hidden',name='songId', required='true', value=song._id )
+
+            button(type='submit' class="bg-blue-600 w-3/4  rounded-lg") Delete
+
+    else
+        p Do you really want to delete this song?
+
+        form(method='POST' action='')
+            input(type='hidden',name='songId', required='true', value=song._id )
+
+            button(type='submit' class="bg-blue-600 w-3/4  my-4 rounded-lg") Delete

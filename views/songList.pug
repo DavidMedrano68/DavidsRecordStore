@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  div(class="grid col-span-10")
+    div(class="text-3xl font-semibold ") #{title}
+     ul(class="grid place-items-center gap-5")
+        each song in songList
+            li(class="text-xl font-extrabold ")
+             a(href=song.url) #[strong #{song.songName}]
+                div(class="text-base text-center")
+                 a(href=song.album.url) #{`Album : ${song.album.albumName}` }

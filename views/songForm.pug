@@ -1,0 +1,41 @@
+extends layout
+
+block content
+   div(class="grid col-span-10")
+    div(class="font-extrabold text-3xl")=title
+
+    form(method='POST' action='' class="grid col-span-10 gap-3")
+        div
+        label(for='songName') Song Name :
+        input#songName(class="w-3/4 rounded-lg text-black p-[2px] outline-0" type='text' placeholder='Please enter song name' name='songName'  value=(undefined===song ? null : song.songName) required="true")
+        label(for="album") Album Name: 
+          select(class="text-black rounded-lg" type='select', placeholder='Select album' name='album' required='true')
+            for album in albums
+              if song
+                option( value=album._id selected=(album._id.toString()===song.album._id.toString() ? 'selected' : false) ) #{album.albumName}
+              else
+                option( value=album._id) #{album.albumName}
+        div(class="grid grid-rows-2") Don't see the Album ?
+            a(href="/catalog/album/create" class="underline") Create it
+        label(for="artist") Artist Name: 
+          select(class="text-black rounded-lg" type='select', placeholder='Select artists' name='artist' required='true')
+            for artist in artistList
+              if song
+                option( value=artist._id selected=(artist._id.toString()===song.artist._id.toString() ? 'selected' : false) ) #{artist.artistName}
+              else
+                option( value=artist._id) #{artist.artistName}
+        div(class="grid grid-rows-2") Don't see the Artist ?
+            a(href="/catalog/artist/create" class="underline") Create it
+        label(for="runtime")  Runtime (minutes) : 
+            input(type="number", name="runtime", min="1" max="100" required="true" class="text-black rounded-lg outline-none px-1" value=(song === undefined ? undefined : song.runtime))
+        label(for="featured") Are any artist featured in this song?
+            for artist in artistList
+               div
+                 input(type='checkbox', name='featured', id=artist._id, value=artist._id, checked=artist.checked )
+                 label(for=artist._id) #{artist.artistName}
+          
+        button(type='submit' class="bg-blue-600 w-3/4 place-self-center my-4 rounded-lg") Submit
+    if errors
+        ul
+        for error in errors
+            li!= error.msg

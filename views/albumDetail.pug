@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  div(class="grid col-span-10")
+    div(class="font-extrabold text-3xl") #{title}
+    div Genre : 
+        each val, index in album.genre
+         a(href=val.url) #{val.genreName}
+         if index < album.genre.length - 1
+           |,
+    div
+        a(href=album.artist.url) #{album.artist.firstName && album.artist.lastName ? album.artist.firstName + " " + album.artist.lastName : album.artist.bandName}
+
+    div #{album.description}
+    ul
+      each song in songList
+        li(class="text-sm") 
+         a(href=song.url) #{song.songName}
+
+    div #{`Price : ${album.price}`}
+    div(class=`${album.stock < 10 ? "text-red-600": "text-green-600"}`) #{`${album.stock < 10 ? `These are selling fast. Only ${album.stock} left` : album.stock+ " " + "left in stock" }`}
+
+    div Something wrong with this information ?
+      a(href=`${album.url}/update` class="text-green-600 underline")  Edit it
+    div Don't need this album anymore ?
+      a(href=`${album.url}/delete` class="text-red-600 underline")  Delete it
+    

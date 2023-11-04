@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  div(class="font-semibold text-3xl grid col-span-10") !{title}
+    ul
+      each album in albumList
+        li(class="grid grid-flow-row place-items-center")
+          a(href=album.url class="text-xl font-semibold") #{album.albumName}
+        div(class="font-normal text-sm text-center") #{album.songs ? `Total songs: ${album.songs.length}`  : null}
+        div(class="font-normal text-sm text-center") #{album.genre ? `${album.genre.length > 1 ? "Total genres : " + album.genre.length  : "Only one genre"}` : null}

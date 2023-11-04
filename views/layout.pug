@@ -1,0 +1,31 @@
+doctype html
+html(lang='en')
+  head
+    title= title
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body(class="h-screen w-screen grid grid-cols-12 bg-[#111827] text-white text-opacity-60")
+        nav(class="col-span-2")
+          block sidebar
+            ul(class="grid gap-5 place-items-center ")
+              li(class="font-semibold text-xl")
+                a(href='/catalog') Record Shop
+              li
+                a(href='/catalog/songs') All Songs
+              li
+                a(href='/catalog/artists') All Artists
+              li
+                a(href='/catalog/genres') All Genres
+              li
+                a(href="/catalog/albums") All Albums
+              li
+                a(href="/catalog/song/create") Create song
+              li
+                a(href="/catalog/artist/create") Create artist
+              li
+                a(href="/catalog/genre/create") Create genre
+              li
+                a(href="/catalog/album/create") Create Album
+        block content

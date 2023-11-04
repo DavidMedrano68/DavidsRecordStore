@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  div(class="grid col-span-10")
+    div(class="text-3xl font-semibold ") #{title}
+     ul(class="grid place-items-center gap-5")
+        each genre in genreList
+            li(class="text-xl font-extrabold ")
+             a(href=genre.url) #[strong #{genre.genreName}]
